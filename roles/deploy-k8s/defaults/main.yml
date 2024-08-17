@@ -1,0 +1,5 @@
+---
+k8s_namespace: localstack
+deployment_file: deployment.yaml
+replicas: 3
+image: nginx:latest

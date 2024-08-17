@@ -1,0 +1,15 @@
+---
+- name: Render deployment template
+  template:
+    src: templates/deployment.j2
+    dest: /tmp/deployment_rendered.yaml
+
+- name: Deploying hello-world application to Kubernetes
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '/tmp/deployment_rendered.yaml') }}"
+
+- name: Remove temporary deployment file
+  file:
+    path: /tmp/deployment_rendered.yaml
+    state: absent

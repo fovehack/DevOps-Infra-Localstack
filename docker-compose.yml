@@ -1,0 +1,15 @@
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566" # Puerto expuesto para acceder a los servicios de LocalStack
+    volumes:
+      # Montar el directorio local para persistir datos (opcional)
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      # Montar el socket de Docker para gestión de contenedores
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      # Configurar el host de Docker
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      # Especificar los servicios de AWS que quieres simular
+      - SERVICES=s3,dynamodb,ec2
